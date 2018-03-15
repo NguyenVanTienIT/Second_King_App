@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.*
 import kotlinx.android.synthetic.*
 
 /**
@@ -17,6 +17,8 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
     var mCrime : Crime? = null
     var mTitleField : EditText? = null
+    var mDateButton : Button? = null
+    var mSolvedCheckBox : CheckBox? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,9 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         return super.onCreateView(inflater, container, savedInstanceState)
         var v : View = inflater!!.inflate(R.layout.activity_fragment_crime, container , false)
         mTitleField = v.findViewById(R.id.crime_title)
+        mDateButton = v.findViewById(R.id.crime_date)
+        mSolvedCheckBox = v.findViewById(R.id.crime_solved)
+
 
         mTitleField!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -44,6 +49,19 @@ class CrimeFragment : android.support.v4.app.Fragment(){
             }
         }
         )
+
+        mDateButton!!.setText(mCrime!!.mDate.toString())
+        mDateButton!!.setEnabled(false);
+
+        mSolvedCheckBox!!.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                mCrime!!.mSoloved = isChecked
+            }
+
+
+        })
+
+
 
         return v
     }
