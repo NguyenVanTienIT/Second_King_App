@@ -20,7 +20,7 @@ import android.support.v7.app.AppCompatActivity
 
         var fm : FragmentManager = supportFragmentManager
 
-        var fragment : Fragment? = fm.findFragmentById(R.id.fragment_container)
+        var fragment : Fragment? = fm.findFragmentById(R.id.fragment_container)   // tìm kiếm xem có fragemnt nằm trong fragment_container
 
         if(fragment == null){
             fragment = CrimeFragment()

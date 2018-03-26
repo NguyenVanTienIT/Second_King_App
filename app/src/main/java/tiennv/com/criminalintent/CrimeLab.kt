@@ -11,7 +11,7 @@ class CrimeLab(context: Context) {
     companion object {
         var sCrimeLab : CrimeLab? = null
 
-        var mCrime : List<Crime>? = null
+        var mCrime : List<Crime>? = null   // mảng các đối tượng Crime
 
         fun get(context : Context) : CrimeLab? {
             if(sCrimeLab == null){
@@ -26,7 +26,7 @@ class CrimeLab(context: Context) {
         return mCrime
     }
 
-    public fun getCrime(id : UUID) : Crime?{    // lấy ra 1 đối tượng thuộc danh sách các đối tượng
+    public fun getCrime(id : UUID) : Crime?{    // lấy ra 1 đối tượng có id đã cho thuộc danh sách các đối tượng
         var i=0;
         for(i in mCrime!!.indices){
             if(mCrime!!.get(i).equals(id))  return mCrime!!.get(i)

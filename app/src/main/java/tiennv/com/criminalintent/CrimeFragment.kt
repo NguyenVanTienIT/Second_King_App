@@ -23,7 +23,6 @@ class CrimeFragment : android.support.v4.app.Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mCrime = Crime()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,6 +59,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
 
         })
+
 
 
 
