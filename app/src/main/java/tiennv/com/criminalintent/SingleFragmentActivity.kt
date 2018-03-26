@@ -25,8 +25,8 @@ import android.support.v7.app.AppCompatActivity
         if(fragment == null){
             fragment = CrimeFragment()
             var fragmentTransaction : android.support.v4.app.FragmentTransaction? = fm.beginTransaction()
-            fragmentTransaction!!.add(R.id.fragment_container,fragment)
-            fragmentTransaction!!.commit()
+            fragmentTransaction?.add(R.id.fragment_container,fragment)
+            fragmentTransaction?.commit()
         }
 
     }
