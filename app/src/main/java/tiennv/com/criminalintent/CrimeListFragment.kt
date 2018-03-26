@@ -11,10 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
 /**
@@ -49,31 +46,35 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
 
 
-    class CrimeHolder(inflater : LayoutInflater,parent : ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item_crime,parent,false)), View.OnClickListener{
+   inner class CrimeHolder(inflater : LayoutInflater,parent : ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item_crime,parent,false)), View.OnClickListener{
 
         var mTitleTextView : TextView? = null
             var mDateTextView : TextView? = null
             var mCrime : Crime? = null
+            var mSolovedImageView : ImageView? = null
 
         init {
             mTitleTextView = itemView.findViewById(R.id.crime_title)
             mDateTextView = itemView.findViewById(R.id.crime_date)
+            mSolovedImageView = itemView.findViewById(R.id.crime_solved)
         }
 
         fun bind(crime : Crime){
             mCrime = crime
             mTitleTextView!!.setText(mCrime!!.mTitle)
+            mDateTextView!!.setText(mCrime!!.mDate.toString())
+            mSolovedImageView!!.visibility
         }
 
 
         override fun onClick(v: View?) {
-            Toast.makeText(getActivity(),mCrime!!.mTitle+" clicked!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,mCrime!!.mTitle+" clicked!",Toast.LENGTH_SHORT).show()
         }
 
     }
 
 
-    class CrimeAdapter(crimes : ArrayList<Crime>) : RecyclerView.Adapter<CrimeHolder>(){
+   inner class CrimeAdapter(crimes : ArrayList<Crime>) : RecyclerView.Adapter<CrimeHolder>(){
 
         var mCrime : ArrayList<Crime>? = null
 
@@ -98,7 +99,7 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
-            var layoutInflater : LayoutInflater = LayoutInflater.from(getActivity())
+            var layoutInflater : LayoutInflater = LayoutInflater.from(activity)
 
             return CrimeHolder(layoutInflater, parent)
         }
