@@ -9,5 +9,4 @@ class CrimeListActivity : SingleFragmentActivity() {
     override fun createFragment(): Fragment? {
        return CrimeListFragment()
     }
-
 }

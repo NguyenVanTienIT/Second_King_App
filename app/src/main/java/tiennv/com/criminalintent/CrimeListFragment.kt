@@ -28,7 +28,7 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
         mCrimeRecyclerView =  view.findViewById(R.id.crime_recycler_view)
 
-        mCrimeRecyclerView!!.layoutManager = LinearLayoutManager(getActivity())
+        mCrimeRecyclerView?.layoutManager = LinearLayoutManager(getActivity())
 
         updateUI()
 
@@ -41,29 +41,30 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         var crimes : ArrayList<Crime> = crimeLab.getCrimes() as ArrayList<Crime>
 
         mAdapter = CrimeAdapter(crimes)
-        mCrimeRecyclerView!!.adapter = mAdapter
+        mCrimeRecyclerView?.adapter = mAdapter
     }
 
 
 
    inner class CrimeHolder(inflater : LayoutInflater,parent : ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item_crime,parent,false)), View.OnClickListener{
 
-        var mTitleTextView : TextView? = null
+            var mTitleTextView : TextView? = null
             var mDateTextView : TextView? = null
             var mCrime : Crime? = null
-            var mSolovedImageView : ImageView? = null
+          //  var mSolovedImageView : ImageView? = null
 
         init {
             mTitleTextView = itemView.findViewById(R.id.crime_title)
             mDateTextView = itemView.findViewById(R.id.crime_date)
-            mSolovedImageView = itemView.findViewById(R.id.crime_solved)
+           // mSolovedImageView = itemView.findViewById(R.id.crime_solved)
+            itemView.setOnClickListener(this)
         }
 
         fun bind(crime : Crime){
             mCrime = crime
             mTitleTextView!!.setText(mCrime!!.mTitle)
             mDateTextView!!.setText(mCrime!!.mDate.toString())
-            mSolovedImageView!!.visibility
+            //mSolovedImageView!!.visibility
         }
 
 
@@ -85,21 +86,21 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
         override fun onBindViewHolder(holder: CrimeHolder?, position: Int) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            var crime = mCrime!![position]
+           /* var crime = mCrime!![position]
 
-            holder!!.bind(crime)
-
+            holder!!.bind(crime)*/
 
         }
 
         override fun getItemCount(): Int {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return mCrime!!.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
-            var layoutInflater : LayoutInflater = LayoutInflater.from(activity)
+            var layoutInflater : LayoutInflater = LayoutInflater.from(getActivity())
 
             return CrimeHolder(layoutInflater, parent)
         }

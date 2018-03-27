@@ -16,17 +16,15 @@ import android.support.v7.app.AppCompatActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_fragment_crime)
+        setContentView(R.layout.activity_fragment)
 
         var fm : FragmentManager = supportFragmentManager
 
         var fragment : Fragment? = fm.findFragmentById(R.id.fragment_container)   // tìm kiếm xem có fragemnt nằm trong fragment_container
 
         if(fragment == null){
-            fragment = CrimeFragment()
-            var fragmentTransaction : android.support.v4.app.FragmentTransaction? = fm.beginTransaction()
-            fragmentTransaction!!.add(R.id.fragment_container,fragment)
-            fragmentTransaction!!.commit()
+            fragment = createFragment()
+            fm.beginTransaction().add(R.id.fragment_container,fragment).commit()
         }
 
     }

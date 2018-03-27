@@ -28,6 +28,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState)
         var v : View = inflater!!.inflate(R.layout.activity_fragment_crime, container , false)
+
         mTitleField = v.findViewById(R.id.crime_title)
         mDateButton = v.findViewById(R.id.crime_date)
         mSolvedCheckBox = v.findViewById(R.id.crime_solved)
@@ -59,9 +60,6 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
 
         })
-
-
-
 
         return v
     }

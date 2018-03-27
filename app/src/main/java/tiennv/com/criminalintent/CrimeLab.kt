@@ -11,7 +11,7 @@ class CrimeLab(context: Context) {
     companion object {
         var sCrimeLab : CrimeLab? = null
 
-        var mCrime : List<Crime>? = null   // mảng các đối tượng Crime
+        var mCrime : ArrayList<Crime>? = null   // mảng các đối tượng Crime
 
         fun get(context : Context) : CrimeLab? {
             if(sCrimeLab == null){
@@ -35,8 +35,16 @@ class CrimeLab(context: Context) {
     }
 
 
-    init {    // hàm dựng này tạo mới 1 list các đối tượng
+    init {    // hàm dựng này tạo mới 1 list các đố
+        // i tượng
         mCrime = ArrayList<Crime>()
+
+        for(i in 1..100){
+            var crime : Crime = Crime()
+            crime.mTitle = "Crime #" + i;
+            crime.mSoloved = i % 2 == 0
+            mCrime?.add(crime)
+        }
     }
 
 }

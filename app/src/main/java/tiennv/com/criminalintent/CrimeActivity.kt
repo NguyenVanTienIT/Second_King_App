@@ -11,5 +11,4 @@ class CrimeActivity : SingleFragmentActivity() {
        return CrimeFragment()
     }
 
-
 }
