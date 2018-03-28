@@ -22,7 +22,7 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
     var mAdapter : CrimeAdapter? = null
 
     override  fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
 
         var view : View = inflater!!.inflate(R.layout.fragment_crime_list, container, false)
 
@@ -51,12 +51,12 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
             var mTitleTextView : TextView? = null
             var mDateTextView : TextView? = null
             var mCrime : Crime? = null
-          //  var mSolovedImageView : ImageView? = null
+            var mSolovedImageView : ImageView? = null
 
         init {
             mTitleTextView = itemView.findViewById(R.id.crime_title)
             mDateTextView = itemView.findViewById(R.id.crime_date)
-           // mSolovedImageView = itemView.findViewById(R.id.crime_solved)
+            mSolovedImageView = itemView.findViewById(R.id.crime_solved)
             itemView.setOnClickListener(this)
         }
 
@@ -64,7 +64,9 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
             mCrime = crime
             mTitleTextView!!.setText(mCrime!!.mTitle)
             mDateTextView!!.setText(mCrime!!.mDate.toString())
-            //mSolovedImageView!!.visibility
+            if(mCrime!!.mSoloved == false)
+            mSolovedImageView!!.visibility = View.VISIBLE
+            else mSolovedImageView!!.visibility = View.GONE
         }
 
 
@@ -75,7 +77,7 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
     }
 
 
-   inner class CrimeAdapter(crimes : ArrayList<Crime>) : RecyclerView.Adapter<CrimeHolder>(){
+   inner class CrimeAdapter(crimes : ArrayList<Crime>) : RecyclerView.Adapter<CrimeHolder>(){     // custom Arraylist tương tự trong listview
 
         var mCrime : ArrayList<Crime>? = null
 
@@ -85,26 +87,25 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         }
 
         override fun onBindViewHolder(holder: CrimeHolder?, position: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-           /* var crime = mCrime!![position]
+            var crime = mCrime!![position]
 
-            holder!!.bind(crime)*/
+            holder!!.bind(crime)
 
         }
 
         override fun getItemCount(): Int {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             return mCrime!!.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
             var layoutInflater : LayoutInflater = LayoutInflater.from(getActivity())
 
             return CrimeHolder(layoutInflater, parent)
+
         }
 
     }
 
 }
+
