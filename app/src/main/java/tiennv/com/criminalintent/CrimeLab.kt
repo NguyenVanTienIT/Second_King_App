@@ -29,7 +29,9 @@ class CrimeLab(context: Context) {
     public fun getCrime(id : UUID) : Crime?{    // lấy ra 1 đối tượng có id đã cho thuộc danh sách các đối tượng
         var i=0;
         for(i in mCrime!!.indices){
-            if(mCrime!!.get(i).equals(id))  return mCrime!!.get(i)
+            if(mCrime!!.get(i).mId!!.equals(id))  {
+                return mCrime!!.get(i)
+            }
         }
         return  null
     }

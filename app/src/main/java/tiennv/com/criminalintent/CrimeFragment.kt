@@ -43,17 +43,17 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
         mSolvedCheckBox = v.findViewById(R.id.crime_solved)
 
-       /* if(mCrime !=null) {
+        if(mCrime !=null) {
 
             mTitleField!!.setText(mCrime!!.mTitle.toString())
-            //mDateButton!!.setText(mCrime!!.mDate.toString())
+            mDateButton!!.setText(mCrime!!.mDate.toString())
             if (mCrime!!.mSoloved == null) {
                 mSolvedCheckBox!!.isChecked = false
             } else
                 mSolvedCheckBox!!.isChecked = mCrime!!.mSoloved!!
 
 
-        }*/
+        }
 
 
 
