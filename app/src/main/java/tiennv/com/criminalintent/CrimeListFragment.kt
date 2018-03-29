@@ -4,10 +4,12 @@ package tiennv.com.criminalintent
 import android.app.Activity
 import android.app.PendingIntent
 import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +73,11 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
 
         override fun onClick(v: View?) {
-            Toast.makeText(activity,mCrime!!.mTitle+" clicked!",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(activity,mCrime!!.mTitle+" clicked!",Toast.LENGTH_SHORT).show()
+            //var itent :  Intent? = Intent(getActivity(),CrimeActivity::class.java)
+            var intent : Intent? = CrimeActivity.newIntent(getActivity(), mCrime!!.mId!!)
+            startActivity(intent)
+            //Log.d("itent","intent da tao")
         }
 
     }

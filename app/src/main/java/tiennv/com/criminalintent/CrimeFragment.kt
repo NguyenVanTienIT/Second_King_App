@@ -1,14 +1,17 @@
 package tiennv.com.criminalintent
 
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import kotlinx.android.synthetic.*
+import java.util.*
 
 /**
  * Created by suale on 3/10/18.
@@ -22,16 +25,36 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mCrime = Crime()
+        var id_Crime : UUID = activity.intent.getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID) as UUID
+        mCrime = CrimeLab.get(activity)!!.getCrime(id_Crime)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+         super.onCreateView(inflater, container, savedInstanceState)
         var v : View = inflater!!.inflate(R.layout.activity_fragment_crime, container , false)
 
+
+
+         // lay 1 doi tuong crimeLab lay ra 1 crime theo id
+
         mTitleField = v.findViewById(R.id.crime_title)
+
         mDateButton = v.findViewById(R.id.crime_date)
+
         mSolvedCheckBox = v.findViewById(R.id.crime_solved)
+
+       /* if(mCrime !=null) {
+
+            mTitleField!!.setText(mCrime!!.mTitle.toString())
+            //mDateButton!!.setText(mCrime!!.mDate.toString())
+            if (mCrime!!.mSoloved == null) {
+                mSolvedCheckBox!!.isChecked = false
+            } else
+                mSolvedCheckBox!!.isChecked = mCrime!!.mSoloved!!
+
+
+        }*/
+
 
 
         mTitleField!!.addTextChangedListener(object : TextWatcher {
