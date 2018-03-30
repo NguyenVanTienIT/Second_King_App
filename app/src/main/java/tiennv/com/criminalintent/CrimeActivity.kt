@@ -12,7 +12,7 @@ import java.util.*
 class CrimeActivity : SingleFragmentActivity() {
 
     companion object {
-       final var EXTRA_CRIME_ID : String = "Id Of Crime"
+       final  var EXTRA_CRIME_ID : String = "Id Of Crime"
 
          fun newIntent(context: Context,crime_id : UUID): Intent{
             var itent : Intent = Intent(context,CrimeActivity::class.java)
@@ -26,7 +26,10 @@ class CrimeActivity : SingleFragmentActivity() {
 
 
     override fun createFragment(): Fragment? {
-       return CrimeFragment()
+       //return CrimeFragment()
+
+        var crimeId : UUID = intent.getSerializableExtra(EXTRA_CRIME_ID) as UUID
+        return CrimeFragment.newInstance(crimeId)  // tra ve mot fragment
     }
 
 }

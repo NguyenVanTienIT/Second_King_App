@@ -1,5 +1,6 @@
 package tiennv.com.criminalintent
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
@@ -23,10 +24,33 @@ class CrimeFragment : android.support.v4.app.Fragment(){
     var mDateButton : Button? = null
     var mSolvedCheckBox : CheckBox? = null
 
+    companion object {
+
+        final var ARG_CRIME_ID = "crime_id"
+
+
+        public fun newInstance(crimeId : UUID) : CrimeFragment?{
+            var bundle : Bundle = Bundle()
+            bundle.putSerializable(ARG_CRIME_ID,crimeId)
+            var fragment : CrimeFragment = CrimeFragment()
+
+            fragment.arguments = bundle
+
+            return fragment
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var id_Crime : UUID = activity.intent.getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID) as UUID
-        mCrime = CrimeLab.get(activity)!!.getCrime(id_Crime)
+      //  var id_Crime : UUID = activity.intent.getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID) as UUID
+       // mCrime = CrimeLab.get(activity)!!.getCrime(id_Crime)
+
+        var crimeId : UUID = arguments.getSerializable(ARG_CRIME_ID) as UUID
+        mCrime = CrimeLab.get(activity)!!.getCrime(crimeId)
+    }
+
+    fun returResult(){
+        activity.setResult(Activity.RESULT_OK,null)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

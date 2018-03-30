@@ -23,6 +23,10 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
     var mCrimeRecyclerView : RecyclerView? = null
     var mAdapter : CrimeAdapter? = null
 
+    companion object {
+        final var REQUEST_CRIME = 1
+    }
+
     override  fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
@@ -38,12 +42,33 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+    }
+
     fun updateUI(){
         var  crimeLab : CrimeLab = CrimeLab.get(getActivity())!!
         var crimes : ArrayList<Crime> = crimeLab.getCrimes() as ArrayList<Crime>
 
-        mAdapter = CrimeAdapter(crimes)
-        mCrimeRecyclerView?.adapter = mAdapter
+        if(mAdapter == null) {
+
+            mAdapter = CrimeAdapter(crimes)
+            mCrimeRecyclerView?.adapter = mAdapter
+        }
+        else{
+            mAdapter!!.notifyDataSetChanged()
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == REQUEST_CRIME){
+
+        }
+
     }
 
 
@@ -75,8 +100,9 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         override fun onClick(v: View?) {
             //Toast.makeText(activity,mCrime!!.mTitle+" clicked!",Toast.LENGTH_SHORT).show()
             //var itent :  Intent? = Intent(getActivity(),CrimeActivity::class.java)
-            var intent : Intent? = CrimeActivity.newIntent(getActivity(), mCrime!!.mId!!)
-            startActivity(intent)
+            //var intent : Intent? = CrimeActivity.newIntent(getActivity(), mCrime!!.mId!!)
+            var intent : Intent? = CrimePagerActivity.newIntent(getActivity(), mCrime!!.mId!!)
+            startActivityForResult(intent, REQUEST_CRIME)
             //Log.d("itent","intent da tao")
         }
 
