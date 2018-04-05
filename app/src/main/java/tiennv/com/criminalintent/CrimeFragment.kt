@@ -1,7 +1,7 @@
 package tiennv.com.criminalintent
 
 import android.app.Activity
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +30,8 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         final var ARG_CRIME_ID = "crime_id"
         final var DIALOG_DATE : String = "DialogDate"
 
+        final var REQUEST_DATE : Int  = 1
+
         public fun newInstance(crimeId : UUID) : CrimeFragment?{
             var bundle : Bundle = Bundle()
             bundle.putSerializable(ARG_CRIME_ID,crimeId)
@@ -52,6 +54,12 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
     fun returResult(){
         activity.setResult(Activity.RESULT_OK,null)
+    }
+
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode != Activity.RESULT_OK){
+            return
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -82,6 +90,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
 
 
+
         mTitleField!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -103,7 +112,10 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
         mDateButton!!.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                var dialog : DatePickerFragment = DatePickerFragment()
+                //var dialog : DatePickerFragment = DatePickerFragment()
+                    var dialog : DatePickerFragment = DatePickerFragment.newInstance(mCrime!!.mDate!!) as DatePickerFragment
+
+                    dialog.setTargetFragment(this@CrimeFragment, REQUEST_DATE)
 
                     dialog.show(fragmentManager, DIALOG_DATE)
 
