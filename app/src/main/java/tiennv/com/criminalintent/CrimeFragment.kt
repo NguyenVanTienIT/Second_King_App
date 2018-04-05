@@ -2,8 +2,8 @@ package tiennv.com.criminalintent
 
 import android.app.Activity
 import android.app.Fragment
-import android.app.FragmentManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -103,9 +103,10 @@ class CrimeFragment : android.support.v4.app.Fragment(){
 
         mDateButton!!.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                var manager : android.support.v4.app.FragmentManager? = fragmentManager
                 var dialog : DatePickerFragment = DatePickerFragment()
-                dialog!!.show(manager, DIALOG_DATE)
+
+                    dialog.show(fragmentManager, DIALOG_DATE)
+
             }
         })
 
