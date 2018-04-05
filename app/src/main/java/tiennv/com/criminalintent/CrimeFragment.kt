@@ -2,6 +2,7 @@ package tiennv.com.criminalintent
 
 import android.app.Activity
 import android.app.Fragment
+import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -27,7 +28,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
     companion object {
 
         final var ARG_CRIME_ID = "crime_id"
-
+        final var DIALOG_DATE : String = "DialogDate"
 
         public fun newInstance(crimeId : UUID) : CrimeFragment?{
             var bundle : Bundle = Bundle()
@@ -98,7 +99,16 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         )
 
         mDateButton!!.setText(mCrime!!.mDate.toString())
-        mDateButton!!.setEnabled(false);
+        //mDateButton!!.setEnabled(false);
+
+        mDateButton!!.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var manager : android.support.v4.app.FragmentManager? = fragmentManager
+                var dialog : DatePickerFragment = DatePickerFragment()
+                dialog!!.show(manager, DIALOG_DATE)
+            }
+        })
+
 
         mSolvedCheckBox!!.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
@@ -112,3 +122,5 @@ class CrimeFragment : android.support.v4.app.Fragment(){
     }
 
 }
+
+

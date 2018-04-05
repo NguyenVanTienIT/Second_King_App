@@ -63,13 +63,6 @@ class CrimePagerActivity : AppCompatActivity() {
             }
 
         }
-
-
-
-
-
-
-
     }
 
 }
