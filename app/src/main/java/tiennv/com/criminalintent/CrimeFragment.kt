@@ -60,6 +60,12 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         if(resultCode != Activity.RESULT_OK){
             return
         }
+         if(requestCode == REQUEST_DATE){
+             var date : Date = data!!.getSerializableExtra(DatePickerFragment.EXTRA_DATE) as Date
+             mCrime!!.mDate = date
+             updateDate()
+
+         }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -79,7 +85,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         if(mCrime !=null) {
 
             mTitleField!!.setText(mCrime!!.mTitle.toString())
-            mDateButton!!.setText(mCrime!!.mDate.toString())
+            updateDate()
             if (mCrime!!.mSoloved == null) {
                 mSolvedCheckBox!!.isChecked = false
             } else
@@ -107,7 +113,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         }
         )
 
-        mDateButton!!.setText(mCrime!!.mDate.toString())
+        updateDate()
         //mDateButton!!.setEnabled(false);
 
         mDateButton!!.setOnClickListener(object : View.OnClickListener{
@@ -115,7 +121,7 @@ class CrimeFragment : android.support.v4.app.Fragment(){
                 //var dialog : DatePickerFragment = DatePickerFragment()
                     var dialog : DatePickerFragment = DatePickerFragment.newInstance(mCrime!!.mDate!!) as DatePickerFragment
 
-                    dialog.setTargetFragment(this@CrimeFragment, REQUEST_DATE)
+                    dialog.setTargetFragment(this@CrimeFragment, REQUEST_DATE)  // as new Activity
 
                     dialog.show(fragmentManager, DIALOG_DATE)
 
@@ -132,6 +138,10 @@ class CrimeFragment : android.support.v4.app.Fragment(){
         })
 
         return v
+    }
+
+    private fun updateDate() {
+        mDateButton!!.setText(mCrime!!.mDate.toString())
     }
 
 }

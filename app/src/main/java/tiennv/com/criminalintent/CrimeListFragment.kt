@@ -7,14 +7,14 @@ import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
+import tiennv.com.criminalintent.CrimeLab.Companion.sCrimeLab
 
 /**
  * Created by Asus on 3/22/2018.
@@ -22,13 +22,21 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
    class CrimeListFragment : Fragment() {
     var mCrimeRecyclerView : RecyclerView? = null
     var mAdapter : CrimeAdapter? = null
+    var mSubtitleVisible : Boolean = true
 
     companion object {
         final var REQUEST_CRIME = 1
+        final var SAVE_SUBTITLE_VISIBLE = "subtitle"
     }
 
     override  fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
+        mSubtitleVisible = true
+        if(savedInstanceState != null){
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVE_SUBTITLE_VISIBLE)
+        }
+
+        setHasOptionsMenu(true)
 
         var view : View = inflater!!.inflate(R.layout.fragment_crime_list, container, false)
 
@@ -47,6 +55,61 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         updateUI()
     }
 
+
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater!!.inflate(R.menu.fragment_crime_list,menu)
+        var subtitleItem : MenuItem = menu!!.findItem(R.id.show_subtitle)
+        if(!mSubtitleVisible){
+            subtitleItem.setTitle(R.string.hide_subtitle)
+        }
+        else{
+            subtitleItem.setTitle(R.string.show_subtitle)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.new_crime -> {
+                var crime :  Crime = Crime()
+                CrimeLab.get(activity)?.addCrime(crime)
+                var intent : Intent = CrimePagerActivity?.newIntent(activity, crime?.mId!!)!!
+                startActivity(intent)
+                return true
+            }
+            R.id.show_subtitle -> {
+                mSubtitleVisible = !mSubtitleVisible
+                activity.invalidateOptionsMenu()
+                updateSubtitle()
+                return true
+            }
+            else -> return false
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putBoolean(SAVE_SUBTITLE_VISIBLE, mSubtitleVisible)
+    }
+
+
+    public fun updateSubtitle(){
+        var crimeLab : CrimeLab = CrimeLab.get(activity)!!
+        var crimeCount = crimeLab.getCrimes()?.size
+        var subtitle = getString(R.string.subtitle_format, crimeCount)
+
+
+        if(!mSubtitleVisible){
+            subtitle = null
+        }
+
+        var activity : AppCompatActivity = getActivity() as AppCompatActivity
+        activity.supportActionBar?.setSubtitle(subtitle)
+
+    }
+
+
     fun updateUI(){
         var  crimeLab : CrimeLab = CrimeLab.get(getActivity())!!
         var crimes : ArrayList<Crime> = crimeLab.getCrimes() as ArrayList<Crime>
@@ -59,6 +122,8 @@ import tiennv.com.criminalintent.CrimeLab.Companion.mCrime
         else{
             mAdapter!!.notifyDataSetChanged()
         }
+
+        updateSubtitle()
     }
 
 

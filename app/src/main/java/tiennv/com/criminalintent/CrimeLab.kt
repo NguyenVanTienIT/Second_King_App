@@ -36,17 +36,21 @@ class CrimeLab(context: Context) {
         return  null
     }
 
+    public fun addCrime(c : Crime){
+        mCrime?.add(c)
+    }
+
 
     init {    // hàm dựng này tạo mới 1 list các đố
         // i tượng
         mCrime = ArrayList<Crime>()
 
-        for(i in 1..100){
+        /*for(i in 1..100){
             var crime : Crime = Crime()
             crime.mTitle = "Crime #" + i;
             crime.mSoloved = i % 2 == 0
             mCrime?.add(crime)
-        }
+        }*/
     }
 
 }
