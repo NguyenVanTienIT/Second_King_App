@@ -1,6 +1,7 @@
 package tiennv.com.criminalintent
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import java.util.*
 
 /**
@@ -12,6 +13,9 @@ class CrimeLab(context: Context) {
         var sCrimeLab : CrimeLab? = null
 
         var mCrime : ArrayList<Crime>? = null   // mảng các đối tượng Crime
+
+        var mContext : Context? = null
+        var mDatabase : SQLiteDatabase? = null
 
         fun get(context : Context) : CrimeLab? {
             if(sCrimeLab == null){
@@ -43,6 +47,10 @@ class CrimeLab(context: Context) {
 
     init {    // hàm dựng này tạo mới 1 list các đố
         // i tượng
+
+        mContext = context.applicationContext
+        mDatabase = CrimeBaseHelper(mContext!!).writableDatabase
+
         mCrime = ArrayList<Crime>()
 
         /*for(i in 1..100){

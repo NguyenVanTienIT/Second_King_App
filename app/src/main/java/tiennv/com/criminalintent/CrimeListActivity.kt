@@ -1,5 +1,6 @@
 package tiennv.com.criminalintent
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 
 /**
@@ -7,8 +8,16 @@ import android.support.v4.app.Fragment
  */
 class CrimeListActivity : SingleFragmentActivity() {
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+    }
+
     override fun createFragment(): Fragment?
     {
        return CrimeListFragment()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
